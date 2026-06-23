@@ -1,5 +1,13 @@
 # @mastra/pg
 
+## 1.14.1-alpha.0
+
+### Patch Changes
+
+- Fixed `PostgresStore.init()` failing with "RoutingDbClient already has a pinned client" when a single store is shared across concurrent requests (for example, request-scoped Mastra instances reusing one store/pool). Concurrent `init()` calls are now coalesced into a single shared initialization instead of each pinning the client. ([#18336](https://github.com/mastra-ai/mastra/pull/18336))
+
+  Also, `init()` is now a no-op when `disableInit: true`, so apps that manage their database schema externally are no longer forced through the connect-and-pin path.
+
 ## 1.14.0
 
 ### Minor Changes
